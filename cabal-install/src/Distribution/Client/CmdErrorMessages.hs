@@ -325,6 +325,13 @@ renderTargetProblemNoneEnabled verb targetSelector targets =
          ++ " not available because building "
          ++ renderOptionalStanza Plural stanza
          ++ " has been disabled in the configuration"
+        (TargetDisabledByUser, Nothing) ->
+            renderListCommaAnd
+              [ "the " ++ showComponentName availableTargetComponentName
+              | AvailableTarget {availableTargetComponentName} <- targets' ]
+         ++ plural (listPlural targets') " is " " are "
+         ++ " not available because building it "
+         ++ " has been disabled in the configuration"
         (TargetDisabledBySolver, Just stanza) ->
             renderListCommaAnd
               [ "the " ++ showComponentName availableTargetComponentName
